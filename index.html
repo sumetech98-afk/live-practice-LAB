@@ -1,4 +1,4 @@
-<!-- ===== LIVE PRACTICE LAB - WORKING VERSION ===== -->
+<!-- ===== LIVE PRACTICE LAB - FIXED VERSION ===== -->
 <!-- Isko Blogger Page Editor mein HTML mode mein paste karein -->
 
 <style>
@@ -137,7 +137,6 @@
         padding: 20px;
         text-align: center;
         transition: 0.3s;
-        cursor: pointer;
     }
     
     .lab-card:hover {
@@ -171,12 +170,6 @@
         border: 1px solid rgba(0, 217, 255, 0.12);
     }
     
-    .lab-card .status.coming {
-        background: rgba(255, 204, 0, 0.08);
-        color: #ffcc00;
-        border: 1px solid rgba(255, 204, 0, 0.1);
-    }
-    
     .lab-card .btn-start {
         padding: 8px 24px;
         border-radius: 6px;
@@ -194,13 +187,6 @@
     .lab-card .btn-start:hover {
         transform: scale(1.02);
         box-shadow: 0 0 25px rgba(0, 255, 136, 0.15);
-    }
-    
-    .lab-card .btn-start.disabled {
-        background: rgba(255, 255, 255, 0.05);
-        color: #6a7290;
-        cursor: not-allowed;
-        pointer-events: none;
     }
     
     /* ===== LAB AREA ===== */
@@ -511,7 +497,7 @@
                 hint: 'Try: <code>admin\' OR 1=1 -- -</code>',
                 challenge: function(input) {
                     var lower = input.toLowerCase();
-                    if (lower.includes("or 1=1") || lower.includes("'--") || lower.includes("' or")) {
+                    if (lower.indexOf("or 1=1") !== -1 || lower.indexOf("'--") !== -1 || lower.indexOf("' or") !== -1) {
                         return { success: true, msg: '🎉 SQL Injection successful! You bypassed the login!' };
                     }
                     return { success: false, msg: '❌ Access Denied. Try a SQL injection payload.' };
@@ -531,10 +517,10 @@
                 hint: 'Try: <code>&lt;script&gt;alert(document.cookie)&lt;/script&gt;</code>',
                 challenge: function(input) {
                     var lower = input.toLowerCase();
-                    if (lower.includes('<script>') && lower.includes('</script>')) {
+                    if (lower.indexOf('<script>') !== -1 && lower.indexOf('</script>') !== -1) {
                         return { success: true, msg: '🎉 XSS payload executed! Cookie: session=admin123' };
                     }
-                    if (lower.includes('alert') || lower.includes('cookie')) {
+                    if (lower.indexOf('alert') !== -1 || lower.indexOf('cookie') !== -1) {
                         return { success: false, msg: '⚠️ Almost! Wrap it in &lt;script&gt; tags.' };
                     }
                     return { success: false, msg: '❌ No XSS payload detected.' };
@@ -602,7 +588,6 @@
         // FUNCTIONS
         // =====================================================
 
-        // Load progress
         function loadProgress() {
             try {
                 var data = localStorage.getItem(STORAGE_KEY);
@@ -618,14 +603,12 @@
             updateUI();
         }
 
-        // Save progress
         function saveProgress() {
             try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(completedLabs));
             } catch (e) {}
         }
 
-        // Update UI
         function updateUI() {
             var total = Object.keys(LABS).length;
             var completed = completedLabs.length;
@@ -635,7 +618,6 @@
             progressText.textContent = percent + '%';
             completedCount.textContent = completed;
 
-            // Update lab cards
             var cards = document.querySelectorAll('.lab-card');
             for (var i = 0; i < cards.length; i++) {
                 var labId = parseInt(cards[i].getAttribute('data-lab'));
@@ -647,7 +629,7 @@
             }
         }
 
-        // Open lab
+        // ===== OPEN LAB - FIXED =====
         function openLab(labId) {
             var lab = LABS[labId];
             if (!lab) {
@@ -683,14 +665,14 @@
             }
         }
 
-        // Close lab
+        // ===== CLOSE LAB =====
         function closeLab() {
             labArea.classList.remove('show');
             currentLab = null;
             showToast('🔒 Lab closed', 'info');
         }
 
-        // Add terminal line
+        // ===== ADD TERMINAL LINE =====
         function addLine(type, text) {
             var div = document.createElement('div');
             div.className = type || '';
@@ -700,7 +682,7 @@
             terminal.scrollTop = terminal.scrollHeight;
         }
 
-        // Process command
+        // ===== PROCESS COMMAND =====
         function processCommand(cmd) {
             var lab = LABS[currentLab];
             if (!lab) {
@@ -760,7 +742,7 @@
             addLine('info', '💡 Type <span class="highlight">help</span> for commands');
         }
 
-        // Check challenge
+        // ===== CHECK CHALLENGE =====
         function checkChallenge() {
             if (!currentLab) {
                 showToast('❌ Please open a lab first', 'error');
@@ -776,7 +758,7 @@
             cmdInput.focus();
         }
 
-        // Toast
+        // ===== TOAST =====
         function showToast(msg, type) {
             toast.textContent = msg;
             toast.className = 'toast ' + (type || 'success');
@@ -823,6 +805,11 @@
         loadProgress();
         console.log('💻 CyberSume Practice Lab loaded!');
         console.log('📚 Total labs: ' + totalLabs);
+
+        // Make functions global for onclick
+        window.openLab = openLab;
+        window.closeLab = closeLab;
+        window.checkChallenge = checkChallenge;
 
     })();
 </script>
