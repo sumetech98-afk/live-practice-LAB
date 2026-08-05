@@ -1,4 +1,4 @@
-<!-- ===== LIVE PRACTICE LAB - SIMPLE WORKING VERSION ===== -->
+<!-- ===== HACKING GAME - CYBERSUME FULL SCREEN BLACK EDITION ===== -->
 <!-- Isko Blogger Page Editor mein HTML mode mein paste karein -->
 
 <style>
@@ -23,18 +23,19 @@
     }
     
     .cyber-content {
-        max-width: 1100px;
+        max-width: 900px;
         margin: 0 auto;
     }
     
-    .page-header {
+    /* ===== HEADER ===== */
+    .game-header {
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 25px;
         padding-bottom: 20px;
         border-bottom: 2px solid rgba(0, 255, 136, 0.1);
     }
     
-    .page-header .badge {
+    .game-header .badge {
         display: inline-block;
         padding: 4px 20px;
         background: rgba(0, 255, 136, 0.08);
@@ -46,157 +47,70 @@
         letter-spacing: 2px;
     }
     
-    .page-header h1 {
+    .game-header h1 {
         font-size: 32px;
         font-weight: 900;
         color: #ffffff;
-        margin: 10px 0 8px;
+        margin: 10px 0 5px;
     }
     
-    .page-header h1 strong { color: #00ff88; }
-    .page-header p { color: #b0b8c8; font-size: 16px; max-width: 600px; margin: 0 auto; }
+    .game-header h1 strong { color: #00ff88; }
+    .game-header p { color: #b0b8c8; font-size: 15px; }
     
     @media (max-width: 768px) {
-        .page-header h1 { font-size: 26px; }
-        .page-header p { font-size: 14px; }
+        .game-header h1 { font-size: 26px; }
     }
     @media (max-width: 480px) {
-        .page-header h1 { font-size: 22px; }
+        .game-header h1 { font-size: 22px; }
+        .game-header p { font-size: 13px; }
     }
     
-    /* ===== PROGRESS ===== */
-    .progress-section {
+    /* ===== STATS BAR ===== */
+    .stats-bar {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 10px;
         background: #0a0a0a;
-        border: 1px solid rgba(0, 255, 136, 0.06);
-        border-radius: 10px;
+        border: 1px solid rgba(0, 255, 136, 0.08);
+        border-radius: 12px;
         padding: 15px 20px;
         margin-bottom: 25px;
     }
     
-    .progress-section .progress-row {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 6px;
+    .stats-bar .stat {
+        text-align: center;
     }
     
-    .progress-section .progress-row span {
-        color: #b0b8c8;
-        font-size: 13px;
+    .stats-bar .stat .value {
+        font-size: 22px;
+        font-weight: 900;
+        color: #00ff88;
+        font-family: 'Courier New', monospace;
     }
     
-    .progress-section .progress-row strong { color: #00ff88; }
-    
-    .progress-bar {
-        width: 100%;
-        height: 6px;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 10px;
-        overflow: hidden;
+    .stats-bar .stat .label {
+        font-size: 11px;
+        color: #6a7290;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
     
-    .progress-bar .fill {
-        height: 100%;
-        background: linear-gradient(90deg, #00ff88, #00d9ff);
-        border-radius: 10px;
-        transition: width 0.5s ease;
-        width: 0%;
+    @media (max-width: 480px) {
+        .stats-bar .stat .value { font-size: 18px; }
+        .stats-bar .stat .label { font-size: 10px; }
     }
     
-    /* ===== LABS GRID ===== */
-    .labs-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
-        margin-bottom: 30px;
-    }
-    
-    @media (max-width: 992px) {
-        .labs-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 600px) {
-        .labs-grid { grid-template-columns: 1fr; }
-    }
-    
-    .lab-card {
+    /* ===== MISSION AREA ===== */
+    .mission-area {
         background: #0a0a0a;
         border: 1px solid rgba(0, 255, 136, 0.06);
         border-radius: 12px;
-        padding: 20px;
-        text-align: center;
-        transition: 0.3s;
-    }
-    
-    .lab-card:hover {
-        border-color: rgba(0, 255, 136, 0.2);
-        transform: translateY(-3px);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-    }
-    
-    .lab-card .icon { font-size: 32px; display: block; margin-bottom: 6px; }
-    .lab-card .name { color: #00ff88; font-size: 17px; font-weight: 700; }
-    .lab-card .desc { color: #b0b8c8; font-size: 13px; line-height: 1.6; margin: 6px 0 10px; }
-    
-    .lab-card .status {
-        display: inline-block;
-        padding: 2px 14px;
-        border-radius: 50px;
-        font-size: 11px;
-        font-weight: 600;
-        margin-bottom: 10px;
-    }
-    
-    .lab-card .status.active {
-        background: rgba(0, 255, 136, 0.12);
-        color: #00ff88;
-        border: 1px solid rgba(0, 255, 136, 0.15);
-    }
-    
-    .lab-card .status.completed {
-        background: rgba(0, 217, 255, 0.1);
-        color: #00d9ff;
-        border: 1px solid rgba(0, 217, 255, 0.12);
-    }
-    
-    .lab-card .btn-start {
-        padding: 10px 24px;
-        border-radius: 6px;
-        border: none;
-        background: linear-gradient(135deg, #00ff88, #00cc77);
-        color: #000000;
-        font-weight: 700;
-        font-size: 14px;
-        cursor: pointer;
-        transition: 0.3s;
-        font-family: inherit;
-        width: 100%;
-    }
-    
-    .lab-card .btn-start:hover {
-        transform: scale(1.02);
-        box-shadow: 0 0 25px rgba(0, 255, 136, 0.15);
-    }
-    
-    /* ===== LAB AREA ===== */
-    .lab-area {
-        background: #0a0a0a;
-        border: 1px solid rgba(0, 255, 136, 0.08);
-        border-radius: 12px;
         padding: 20px 24px;
-        margin-bottom: 25px;
-        display: none;
-        animation: fadeIn 0.4s ease;
+        margin-bottom: 20px;
     }
     
-    .lab-area.show { display: block; }
-    
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(15px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .lab-area .lab-header {
+    .mission-area .mission-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -207,27 +121,37 @@
         margin-bottom: 14px;
     }
     
-    .lab-area .lab-header .title {
-        color: #00ff88;
-        font-size: 19px;
+    .mission-area .mission-header .level {
+        color: #ffcc00;
+        font-size: 16px;
         font-weight: 700;
     }
     
-    .lab-area .lab-header .btn-close {
-        padding: 6px 18px;
-        border-radius: 6px;
-        border: 1px solid rgba(255, 107, 107, 0.25);
-        background: transparent;
-        color: #ff6b6b;
-        font-size: 13px;
-        cursor: pointer;
-        transition: 0.3s;
-        font-family: inherit;
+    .mission-area .mission-header .mission-title {
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 700;
     }
     
-    .lab-area .lab-header .btn-close:hover {
-        background: rgba(255, 107, 107, 0.08);
-        border-color: #ff6b6b;
+    .mission-area .mission-desc {
+        color: #b0b8c8;
+        font-size: 15px;
+        line-height: 1.7;
+        margin-bottom: 12px;
+    }
+    
+    .mission-area .mission-hint {
+        background: rgba(0, 217, 255, 0.03);
+        border-left: 3px solid #00d9ff;
+        padding: 8px 14px;
+        border-radius: 0 4px 4px 0;
+        margin: 8px 0 12px;
+    }
+    
+    .mission-area .mission-hint p {
+        color: #00d9ff !important;
+        font-size: 13px;
+        margin: 0 !important;
     }
     
     /* ===== TERMINAL ===== */
@@ -239,8 +163,8 @@
         font-family: 'Courier New', monospace;
         font-size: 14px;
         color: #b0b8c8;
-        min-height: 160px;
-        max-height: 280px;
+        min-height: 140px;
+        max-height: 250px;
         overflow-y: auto;
         line-height: 1.8;
         margin-bottom: 12px;
@@ -252,6 +176,7 @@
     .terminal .success { color: #00ff88; }
     .terminal .info { color: #00d9ff; }
     .terminal .highlight { color: #ffcc00; }
+    .terminal .hack { color: #ff6b6b; font-weight: 700; }
     
     .terminal .cmd-row {
         display: flex;
@@ -286,64 +211,70 @@
     .terminal::-webkit-scrollbar-track { background: #050816; }
     .terminal::-webkit-scrollbar-thumb { background: #00ff88; border-radius: 10px; }
     
-    /* ===== CHALLENGE ===== */
-    .challenge-box {
-        margin-top: 10px;
-        padding: 14px 18px;
-        background: rgba(0, 255, 136, 0.02);
-        border: 1px solid rgba(0, 255, 136, 0.05);
+    /* ===== HACK BUTTON ===== */
+    .hack-btn {
+        padding: 12px 30px;
         border-radius: 8px;
-    }
-    
-    .challenge-box .challenge-title {
-        color: #ffcc00;
-        font-size: 15px;
+        border: none;
+        background: linear-gradient(135deg, #ff6b6b, #cc0000);
+        color: #ffffff;
         font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-family: inherit;
+        width: 100%;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
     
-    .challenge-box .challenge-desc {
-        color: #b0b8c8;
-        font-size: 14px;
-        margin: 4px 0 8px;
+    .hack-btn:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
     }
     
-    .challenge-box .challenge-hint {
-        background: rgba(0, 217, 255, 0.03);
-        border-left: 3px solid #00d9ff;
-        padding: 8px 14px;
-        border-radius: 0 4px 4px 0;
-        margin: 6px 0 10px;
+    .hack-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none !important;
     }
     
-    .challenge-box .challenge-hint p {
-        color: #00d9ff !important;
-        font-size: 13px;
-        margin: 0 !important;
+    .hack-btn.success {
+        background: linear-gradient(135deg, #00ff88, #00cc77);
+        color: #000000;
     }
     
-    .challenge-box .btn-check {
-        padding: 8px 28px;
-        border-radius: 6px;
+    /* ===== GAME OVER ===== */
+    .game-over {
+        text-align: center;
+        padding: 30px 20px;
+        background: #0a0a0a;
+        border: 2px solid #ffcc00;
+        border-radius: 12px;
+        margin: 20px 0;
+    }
+    
+    .game-over .icon { font-size: 48px; display: block; margin-bottom: 10px; }
+    .game-over h2 { color: #ffcc00; font-size: 28px; }
+    .game-over p { color: #b0b8c8; font-size: 16px; }
+    
+    .game-over .btn-restart {
+        padding: 12px 40px;
+        border-radius: 8px;
         border: none;
         background: linear-gradient(135deg, #ffcc00, #ff9900);
         color: #000000;
         font-weight: 700;
-        font-size: 13px;
+        font-size: 15px;
         cursor: pointer;
         transition: 0.3s;
         font-family: inherit;
+        margin-top: 10px;
     }
     
-    .challenge-box .btn-check:hover {
-        transform: scale(1.03);
-        box-shadow: 0 0 25px rgba(255, 204, 0, 0.15);
-    }
-    
-    .challenge-box .btn-check.completed {
-        background: rgba(0, 255, 136, 0.15);
-        color: #00ff88;
-        cursor: default;
-        pointer-events: none;
+    .game-over .btn-restart:hover {
+        transform: scale(1.04);
+        box-shadow: 0 0 30px rgba(255, 204, 0, 0.2);
     }
     
     /* ===== TOAST ===== */
@@ -372,10 +303,9 @@
     
     @media (max-width: 480px) {
         .toast { right: 10px; left: 10px; max-width: auto; font-size: 13px; padding: 10px 16px; }
-        .lab-area { padding: 14px 16px; }
         .terminal { font-size: 13px; padding: 10px 14px; min-height: 120px; }
         .terminal .cmd-row input { font-size: 13px; }
-        .challenge-box { padding: 10px 14px; }
+        .mission-area { padding: 14px 16px; }
     }
 </style>
 
@@ -385,82 +315,70 @@
     <div class="cyber-content">
 
         <!-- ===== HEADER ===== -->
-        <div class="page-header">
-            <span class="badge">💻 Practice Lab</span>
-            <h1>Live <strong>Practice Lab</strong></h1>
-            <p>Practice your hacking skills in a safe environment.</p>
+        <div class="game-header">
+            <span class="badge">🎮 Hacking Game</span>
+            <h1>Hacker <strong>Simulator</strong></h1>
+            <p>Become a hacker — complete missions, earn points, and rise to the top!</p>
         </div>
 
-        <!-- ===== PROGRESS ===== -->
-        <div class="progress-section">
-            <div class="progress-row">
-                <span>📊 Progress: <strong id="progressText">0%</strong></span>
-                <span>Completed: <strong id="completedCount">0</strong> / <strong id="totalCount">3</strong></span>
+        <!-- ===== STATS ===== -->
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="value" id="scoreDisplay">0</div>
+                <div class="label">🪙 Score</div>
             </div>
-            <div class="progress-bar">
-                <div class="fill" id="progressFill"></div>
+            <div class="stat">
+                <div class="value" id="levelDisplay">1</div>
+                <div class="label">📊 Level</div>
             </div>
-        </div>
-
-        <!-- ===== LABS ===== -->
-        <div class="labs-grid">
-            <!-- Lab 1 -->
-            <div class="lab-card" id="lab1">
-                <span class="icon">🗄️</span>
-                <div class="name">SQL Injection</div>
-                <div class="desc">Bypass login using SQL injection</div>
-                <span class="status active">🟢 Active</span>
-                <button class="btn-start" onclick="startLab(1)">🚀 Start</button>
+            <div class="stat">
+                <div class="value" id="missionDisplay">0</div>
+                <div class="label">🎯 Missions</div>
             </div>
-
-            <!-- Lab 2 -->
-            <div class="lab-card" id="lab2">
-                <span class="icon">🌐</span>
-                <div class="name">XSS Attack</div>
-                <div class="desc">Inject XSS payload to steal cookies</div>
-                <span class="status active">🟢 Active</span>
-                <button class="btn-start" onclick="startLab(2)">🚀 Start</button>
-            </div>
-
-            <!-- Lab 3 -->
-            <div class="lab-card" id="lab3">
-                <span class="icon">🔑</span>
-                <div class="name">Password Cracking</div>
-                <div class="desc">Crack password hash</div>
-                <span class="status active">🟢 Active</span>
-                <button class="btn-start" onclick="startLab(3)">🚀 Start</button>
+            <div class="stat">
+                <div class="value" id="hacksDisplay">0</div>
+                <div class="label">💻 Hacks</div>
             </div>
         </div>
 
-        <!-- ===== LAB AREA ===== -->
-        <div class="lab-area" id="labArea">
-            <div class="lab-header">
-                <span class="title" id="labTitle">Lab Name</span>
-                <button class="btn-close" onclick="closeLab()">✕ Close</button>
+        <!-- ===== MISSION ===== -->
+        <div class="mission-area" id="missionArea">
+            <div class="mission-header">
+                <span class="level" id="levelTag">🟢 Level 1</span>
+                <span class="mission-title" id="missionTitle">Mission: SQL Injection</span>
             </div>
+            <div class="mission-desc" id="missionDesc">
+                Exploit the SQL injection vulnerability to bypass the login system.
+            </div>
+            <div class="mission-hint" id="missionHint">
+                <p>💡 Hint: Try <code>admin' OR 1=1 -- -</code></p>
+            </div>
+        </div>
 
-            <!-- Terminal -->
-            <div class="terminal" id="terminal">
-                <div id="terminalOutput">
-                    <div class="info">🖥️ Welcome to CyberSume Practice Lab</div>
-                    <div class="info">📌 Type <span class="highlight">help</span> for commands</div>
-                    <div>&nbsp;</div>
-                </div>
-                <div class="cmd-row">
-                    <span class="prompt-symbol">$></span>
-                    <input type="text" id="cmdInput" placeholder="Enter command..." autofocus />
-                </div>
+        <!-- ===== TERMINAL ===== -->
+        <div class="terminal" id="terminal">
+            <div id="terminalOutput">
+                <div class="info">🖥️ Welcome, Hacker!</div>
+                <div class="info">📌 Type <span class="highlight">help</span> for commands</div>
+                <div class="info">🎯 Complete the mission to earn points!</div>
+                <div>&nbsp;</div>
             </div>
+            <div class="cmd-row">
+                <span class="prompt-symbol">$></span>
+                <input type="text" id="cmdInput" placeholder="Enter command..." autofocus />
+            </div>
+        </div>
 
-            <!-- Challenge -->
-            <div class="challenge-box">
-                <div class="challenge-title" id="challengeTitle">🎯 Challenge</div>
-                <div class="challenge-desc" id="challengeDesc">Complete the challenge to earn points!</div>
-                <div class="challenge-hint" id="challengeHint">
-                    <p>💡 Hint: Type <code>help</code> to see available commands.</p>
-                </div>
-                <button class="btn-check" id="checkBtn" onclick="checkChallenge()">✅ Check Challenge</button>
-            </div>
+        <!-- ===== HACK BUTTON ===== -->
+        <button class="hack-btn" id="hackBtn" onclick="executeHack()">💻 HACK</button>
+
+        <!-- ===== GAME OVER ===== -->
+        <div class="game-over" id="gameOver" style="display:none;">
+            <span class="icon">🏆</span>
+            <h2>Congratulations, Hacker!</h2>
+            <p>You completed all missions! You are a true CyberSume hacker.</p>
+            <p style="color:#00ff88;font-size:18px;font-weight:700;" id="finalScore">Score: 0</p>
+            <button class="btn-restart" onclick="resetGame()">🔄 Play Again</button>
         </div>
 
     </div>
@@ -472,331 +390,375 @@
 
 <!-- ===== JAVASCRIPT ===== -->
 <script>
-    // =====================================================
-    // LAB DATA
-    // =====================================================
-    var labData = {
-        1: {
-            name: 'SQL Injection Lab',
-            title: '🔓 SQL Injection Challenge',
-            desc: 'Bypass the login using SQL injection.',
+    (function() {
+        'use strict';
+
+        // =====================================================
+        // GAME DATA
+        // =====================================================
+        var missions = [{
+            id: 1,
+            title: 'SQL Injection',
+            desc: 'Exploit the SQL injection vulnerability to bypass the login system.',
             hint: 'Try: admin\' OR 1=1 -- -',
-            commands: {
-                'help': 'Available: help, scan, exploit, flag, clear',
-                'scan': '🔍 Scanning...\n[+] Port 80 open - HTTP\n[+] Port 443 open - HTTPS',
-                'exploit': '💥 Exploiting SQL injection...\n[+] Payload: admin\' OR 1=1 -- -\n[+] Login successful!',
-                'flag': '🏁 FLAG{SQL_INJECTION_MASTER}',
-                'clear': 'clear'
-            },
-            check: function(input) {
-                var lower = input.toLowerCase();
-                if (lower.indexOf('or 1=1') !== -1 || lower.indexOf("'--") !== -1) {
-                    return { success: true, msg: '🎉 SQL Injection successful! You bypassed the login!' };
-                }
-                return { success: false, msg: '❌ Access Denied. Try: admin\' OR 1=1 -- -' };
-            }
-        },
-        2: {
-            name: 'XSS Lab',
-            title: '🌐 Cross-Site Scripting Challenge',
+            command: 'exploit',
+            answer: 'admin\' OR 1=1 -- -',
+            successMsg: '🎉 SQL Injection successful! You bypassed the login!',
+            failMsg: '❌ Access Denied. Try a SQL injection payload.'
+        }, {
+            id: 2,
+            title: 'XSS Attack',
             desc: 'Inject an XSS payload to steal the session cookie.',
             hint: 'Try: <script>alert(document.cookie)</script>',
-            commands: {
-                'help': 'Available: help, scan, inject, flag, clear',
-                'scan': '🔍 Scanning...\n[+] Page vulnerable to XSS',
-                'inject': '💉 Payload executed! Cookie: session=admin123',
-                'flag': '🏁 FLAG{XSS_MASTER}',
-                'clear': 'clear'
-            },
-            check: function(input) {
-                var lower = input.toLowerCase();
-                if (lower.indexOf('<script>') !== -1 && lower.indexOf('</script>') !== -1) {
-                    return { success: true, msg: '🎉 XSS payload executed! Cookie stolen!' };
-                }
-                return { success: false, msg: '❌ No XSS payload detected. Try: <script>alert(document.cookie)</script>' };
-            }
-        },
-        3: {
-            name: 'Password Cracking Lab',
-            title: '🔑 Password Cracking Challenge',
+            command: 'inject',
+            answer: '<script>alert(document.cookie)</script>',
+            successMsg: '🎉 XSS payload executed! Cookie stolen: session=admin123',
+            failMsg: '❌ No XSS payload detected. Try injecting a script tag.'
+        }, {
+            id: 3,
+            title: 'Password Cracking',
             desc: 'Crack the password hash using a dictionary attack.',
             hint: 'Try common passwords like: password, 123456, admin',
-            commands: {
-                'help': 'Available: help, crack, flag, clear',
-                'crack': '💀 Cracking hash...\n[+] Found! Password: password',
-                'flag': '🏁 FLAG{PASSWORD_CRACKER}',
-                'clear': 'clear'
-            },
-            check: function(input) {
-                var lower = input.toLowerCase();
-                var common = ['password', '123456', 'admin', 'letmein', 'qwerty', 'passw0rd'];
-                for (var i = 0; i < common.length; i++) {
-                    if (lower.indexOf(common[i]) !== -1) {
-                        return { success: true, msg: '🎉 Password cracked! Password: ' + common[i] };
+            command: 'crack',
+            answer: 'password',
+            successMsg: '🎉 Password cracked! The password was: password',
+            failMsg: '❌ Password not found. Try a common password.'
+        }, {
+            id: 4,
+            title: 'Port Scanning',
+            desc: 'Scan the target to find open ports and services.',
+            hint: 'Use the scan command to find open ports.',
+            command: 'scan',
+            answer: 'scan',
+            successMsg: '🔍 Scanning complete! Open ports: 80, 443, 3306',
+            failMsg: '❌ No ports found. Try scanning again.'
+        }, {
+            id: 5,
+            title: 'Privilege Escalation',
+            desc: 'Escalate your privileges to gain root access.',
+            hint: 'Try the escalate command.',
+            command: 'escalate',
+            answer: 'escalate',
+            successMsg: '🎉 Privilege escalation successful! You are now root!',
+            failMsg: '❌ Privilege escalation failed. Try again.'
+        }];
+
+        // =====================================================
+        // STATE
+        // =====================================================
+        var currentMission = 0;
+        var score = 0;
+        var totalHacks = 0;
+        var gameCompleted = false;
+        var STORAGE_KEY = 'cybersume_hacking_game';
+
+        // =====================================================
+        // DOM
+        // =====================================================
+        var terminalOutput = document.getElementById('terminalOutput');
+        var cmdInput = document.getElementById('cmdInput');
+        var scoreDisplay = document.getElementById('scoreDisplay');
+        var levelDisplay = document.getElementById('levelDisplay');
+        var missionDisplay = document.getElementById('missionDisplay');
+        var hacksDisplay = document.getElementById('hacksDisplay');
+        var missionTitle = document.getElementById('missionTitle');
+        var missionDesc = document.getElementById('missionDesc');
+        var missionHint = document.getElementById('missionHint');
+        var levelTag = document.getElementById('levelTag');
+        var hackBtn = document.getElementById('hackBtn');
+        var gameOver = document.getElementById('gameOver');
+        var finalScore = document.getElementById('finalScore');
+        var toast = document.getElementById('toast');
+
+        // =====================================================
+        // LOAD PROGRESS
+        // =====================================================
+        function loadProgress() {
+            try {
+                var data = localStorage.getItem(STORAGE_KEY);
+                if (data) {
+                    var parsed = JSON.parse(data);
+                    if (parsed) {
+                        currentMission = parsed.currentMission || 0;
+                        score = parsed.score || 0;
+                        totalHacks = parsed.totalHacks || 0;
+                        if (parsed.completed) {
+                            gameCompleted = true;
+                            showGameOver();
+                            return;
+                        }
                     }
                 }
-                return { success: false, msg: '❌ Password not found. Try a common password.' };
+            } catch (e) {}
+            updateUI();
+            loadMission();
+        }
+
+        function saveProgress() {
+            try {
+                var data = {
+                    currentMission: currentMission,
+                    score: score,
+                    totalHacks: totalHacks,
+                    completed: gameCompleted
+                };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            } catch (e) {}
+        }
+
+        // =====================================================
+        // UI UPDATE
+        // =====================================================
+        function updateUI() {
+            scoreDisplay.textContent = score;
+            levelDisplay.textContent = currentMission + 1;
+            missionDisplay.textContent = currentMission;
+            hacksDisplay.textContent = totalHacks;
+        }
+
+        function loadMission() {
+            if (gameCompleted) {
+                showGameOver();
+                return;
             }
-        }
-    };
 
-    // =====================================================
-    // STATE
-    // =====================================================
-    var currentLab = null;
-    var completed = [];
-    var STORAGE_KEY = 'cybersume_lab_progress';
-
-    // =====================================================
-    // DOM
-    // =====================================================
-    var labArea = document.getElementById('labArea');
-    var labTitle = document.getElementById('labTitle');
-    var terminalOutput = document.getElementById('terminalOutput');
-    var cmdInput = document.getElementById('cmdInput');
-    var challengeTitle = document.getElementById('challengeTitle');
-    var challengeDesc = document.getElementById('challengeDesc');
-    var challengeHint = document.getElementById('challengeHint');
-    var checkBtn = document.getElementById('checkBtn');
-    var progressFill = document.getElementById('progressFill');
-    var progressText = document.getElementById('progressText');
-    var completedCount = document.getElementById('completedCount');
-    var totalCount = document.getElementById('totalCount');
-    var toast = document.getElementById('toast');
-
-    var totalLabs = Object.keys(labData).length;
-    totalCount.textContent = totalLabs;
-
-    // =====================================================
-    // FUNCTIONS
-    // =====================================================
-
-    function loadProgress() {
-        try {
-            var data = localStorage.getItem(STORAGE_KEY);
-            if (data) {
-                var parsed = JSON.parse(data);
-                if (Array.isArray(parsed)) {
-                    completed = parsed;
-                }
+            if (currentMission >= missions.length) {
+                gameCompleted = true;
+                saveProgress();
+                showGameOver();
+                return;
             }
-        } catch (e) {
-            completed = [];
-        }
-        updateUI();
-    }
 
-    function saveProgress() {
-        try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(completed));
-        } catch (e) {}
-    }
+            var mission = missions[currentMission];
+            missionTitle.textContent = 'Mission: ' + mission.title;
+            missionDesc.textContent = mission.desc;
+            missionHint.innerHTML = '<p>💡 Hint: ' + mission.hint + '</p>';
+            levelTag.textContent = '🟢 Level ' + (currentMission + 1);
 
-    function updateUI() {
-        var total = Object.keys(labData).length;
-        var done = completed.length;
-        var percent = total > 0 ? Math.round((done / total) * 100) : 0;
-
-        progressFill.style.width = percent + '%';
-        progressText.textContent = percent + '%';
-        completedCount.textContent = done;
-
-        // Update lab cards
-        for (var i = 1; i <= total; i++) {
-            var card = document.getElementById('lab' + i);
-            if (card) {
-                var statusEl = card.querySelector('.status');
-                if (completed.indexOf(i) !== -1) {
-                    statusEl.textContent = '✅ Completed';
-                    statusEl.className = 'status completed';
-                }
-            }
-        }
-    }
-
-    // ===== START LAB =====
-    function startLab(labId) {
-        var lab = labData[labId];
-        if (!lab) {
-            showToast('Lab not found', 'error');
-            return;
-        }
-
-        currentLab = labId;
-        labArea.classList.add('show');
-        labTitle.textContent = lab.title || lab.name;
-        challengeTitle.textContent = '🎯 Challenge';
-        challengeDesc.textContent = lab.desc;
-        challengeHint.innerHTML = '<p>💡 Hint: ' + lab.hint + '</p>';
-
-        // Reset check button
-        checkBtn.textContent = '✅ Check Challenge';
-        checkBtn.className = 'btn-check';
-
-        // Clear terminal
-        terminalOutput.innerHTML = '';
-        addLine('info', '🖥️ Welcome to ' + lab.name);
-        addLine('info', '📌 Type <span class="highlight">help</span> for commands');
-        addLine('', '');
-
-        cmdInput.value = '';
-        cmdInput.focus();
-
-        labArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        showToast('🚀 Lab opened: ' + lab.name, 'success');
-
-        // Check if already completed
-        if (completed.indexOf(labId) !== -1) {
-            checkBtn.textContent = '✅ Completed!';
-            checkBtn.className = 'btn-check completed';
-        }
-    }
-
-    // ===== CLOSE LAB =====
-    function closeLab() {
-        labArea.classList.remove('show');
-        currentLab = null;
-        showToast('🔒 Lab closed', 'info');
-    }
-
-    // ===== ADD TERMINAL LINE =====
-    function addLine(type, text) {
-        var div = document.createElement('div');
-        div.className = type || '';
-        div.innerHTML = text;
-        terminalOutput.appendChild(div);
-        var terminal = document.getElementById('terminal');
-        terminal.scrollTop = terminal.scrollHeight;
-    }
-
-    // ===== PROCESS COMMAND =====
-    function processCommand(cmd) {
-        var lab = labData[currentLab];
-        if (!lab) {
-            addLine('error', '❌ No lab is open. Start a lab first.');
-            return;
-        }
-
-        var trimmed = cmd.trim().toLowerCase();
-
-        // Help
-        if (trimmed === 'help') {
-            var keys = Object.keys(lab.commands);
-            addLine('output', '📋 Available commands: ' + keys.join(', '));
-            return;
-        }
-
-        // Clear
-        if (trimmed === 'clear') {
+            // Reset terminal
             terminalOutput.innerHTML = '';
-            addLine('info', '🖥️ Terminal cleared');
+            addLine('info', '🖥️ Mission ' + (currentMission + 1) + ': ' + mission.title);
             addLine('info', '📌 Type <span class="highlight">help</span> for commands');
-            return;
+            addLine('info', '💡 Command to use: <span class="highlight">' + mission.command + '</span>');
+            addLine('', '');
+
+            cmdInput.value = '';
+            cmdInput.focus();
+
+            // Reset hack button
+            hackBtn.textContent = '💻 HACK';
+            hackBtn.className = 'hack-btn';
+            hackBtn.disabled = false;
+
+            updateUI();
+            saveProgress();
         }
 
-        // Lab commands
-        if (lab.commands && lab.commands[trimmed]) {
-            var output = lab.commands[trimmed];
-            var lines = output.split('\n');
-            for (var i = 0; i < lines.length; i++) {
-                if (lines[i].trim()) {
-                    addLine('output', lines[i]);
+        function showGameOver() {
+            document.getElementById('missionArea').style.display = 'none';
+            terminalOutput.innerHTML = '';
+            addLine('success', '🏆 All missions completed!');
+            addLine('success', 'You are a true CyberSume hacker!');
+            gameOver.style.display = 'block';
+            finalScore.textContent = 'Score: ' + score;
+            hackBtn.disabled = true;
+            hackBtn.style.display = 'none';
+            saveProgress();
+        }
+
+        // =====================================================
+        // TERMINAL
+        // =====================================================
+        function addLine(type, text) {
+            var div = document.createElement('div');
+            div.className = type || '';
+            div.innerHTML = text;
+            terminalOutput.appendChild(div);
+            var terminal = document.getElementById('terminal');
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function processCommand(cmd) {
+            if (gameCompleted) {
+                addLine('info', '🏆 Game completed! Click "Play Again" to restart.');
+                return;
+            }
+
+            var mission = missions[currentMission];
+            var trimmed = cmd.trim().toLowerCase();
+
+            // Help
+            if (trimmed === 'help') {
+                addLine('output', '📋 Commands: help, ' + mission.command + ', flag, clear');
+                return;
+            }
+
+            // Clear
+            if (trimmed === 'clear') {
+                terminalOutput.innerHTML = '';
+                addLine('info', '🖥️ Terminal cleared');
+                return;
+            }
+
+            // Flag
+            if (trimmed === 'flag') {
+                addLine('output', '🏁 FLAG{MISSION_' + (currentMission + 1) + '_COMPLETE}');
+                return;
+            }
+
+            // Check if it's the mission command
+            if (trimmed === mission.command) {
+                addLine('output', '💻 Executing ' + mission.command + '...');
+                // Check if the user typed the command - they need to type the answer
+                addLine('info', '📝 Now type the payload/answer for this mission.');
+                return;
+            }
+
+            // Check if it's the answer
+            if (trimmed === mission.answer.toLowerCase()) {
+                addLine('success', mission.successMsg);
+                // Mission complete!
+                score += 100;
+                totalHacks++;
+                currentMission++;
+                updateUI();
+                saveProgress();
+                showToast('🎉 Mission complete! +100 points', 'success');
+                setTimeout(function() {
+                    loadMission();
+                }, 1500);
+                return;
+            }
+
+            // Check if answer is close
+            if (mission.answer && trimmed.indexOf(mission.answer.toLowerCase()) !== -1) {
+                addLine('output', '⚠️ Almost! Try exactly: ' + mission.answer);
+                return;
+            }
+
+            addLine('error', '❌ Invalid command or answer.');
+            addLine('info', '💡 Try: <span class="highlight">' + mission.command + '</span> then type the payload');
+        }
+
+        // =====================================================
+        // HACK BUTTON
+        // =====================================================
+        function executeHack() {
+            if (gameCompleted) {
+                showToast('🏆 Game completed! Click "Play Again" to restart.', 'info');
+                return;
+            }
+
+            var mission = missions[currentMission];
+            addLine('prompt', '$> ' + mission.command);
+            addLine('output', '💻 Hacking ' + mission.title + '...');
+
+            // Simulate hacking animation
+            hackBtn.disabled = true;
+            hackBtn.textContent = '⏳ Hacking...';
+
+            var steps = [
+                '🔍 Scanning target...',
+                '📡 Finding vulnerabilities...',
+                '💥 Exploiting ' + mission.title + '...',
+                '🔓 Access granted!'
+            ];
+
+            var stepIndex = 0;
+            var interval = setInterval(function() {
+                if (stepIndex < steps.length) {
+                    addLine('output', steps[stepIndex]);
+                    stepIndex++;
+                } else {
+                    clearInterval(interval);
+                    addLine('info', '📝 Now type the payload/answer for this mission.');
+                    hackBtn.textContent = '💻 HACK';
+                    hackBtn.disabled = false;
+                    cmdInput.focus();
                 }
-            }
-            return;
+            }, 800);
         }
 
-        // Check if it's a challenge answer
-        if (lab.check) {
-            var result = lab.check(cmd);
-            if (result.success) {
-                addLine('success', result.msg);
-                if (completed.indexOf(currentLab) === -1) {
-                    completed.push(currentLab);
-                    saveProgress();
-                    updateUI();
-                    showToast('🎉 Lab completed!', 'success');
-                    checkBtn.textContent = '✅ Completed!';
-                    checkBtn.className = 'btn-check completed';
+        // =====================================================
+        // GAME OVER - RESET
+        // =====================================================
+        function resetGame() {
+            currentMission = 0;
+            score = 0;
+            totalHacks = 0;
+            gameCompleted = false;
+            gameOver.style.display = 'none';
+            document.getElementById('missionArea').style.display = 'block';
+            hackBtn.style.display = 'block';
+            hackBtn.disabled = false;
+            hackBtn.textContent = '💻 HACK';
+            hackBtn.className = 'hack-btn';
+            saveProgress();
+            loadMission();
+            showToast('🔄 Game reset! Good luck, hacker!', 'info');
+        }
+
+        // =====================================================
+        // TOAST
+        // =====================================================
+        function showToast(msg, type) {
+            toast.textContent = msg;
+            toast.className = 'toast ' + (type || 'success');
+            toast.classList.add('show');
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(function() {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // =====================================================
+        // EVENTS
+        // =====================================================
+
+        cmdInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                var cmd = this.value;
+                if (cmd.trim()) {
+                    addLine('prompt', '$> ' + cmd);
+                    processCommand(cmd);
                 }
-            } else {
-                addLine('error', result.msg);
+                this.value = '';
+                setTimeout(function() {
+                    cmdInput.focus();
+                }, 10);
             }
-            return;
-        }
+        });
 
-        addLine('error', '❌ Unknown command: ' + cmd);
-        addLine('info', '💡 Type <span class="highlight">help</span> for commands');
-    }
+        document.getElementById('terminal').addEventListener('click', function() {
+            cmdInput.focus();
+        });
 
-    // ===== CHECK CHALLENGE =====
-    function checkChallenge() {
-        if (!currentLab) {
-            showToast('❌ Please open a lab first', 'error');
-            return;
-        }
-
-        if (completed.indexOf(currentLab) !== -1) {
-            showToast('✅ This lab is already completed!', 'success');
-            return;
-        }
-
-        showToast('💡 Type your answer in the terminal.', 'info');
-        cmdInput.focus();
-    }
-
-    // ===== TOAST =====
-    function showToast(msg, type) {
-        toast.textContent = msg;
-        toast.className = 'toast ' + (type || 'success');
-        toast.classList.add('show');
-        clearTimeout(toast._timer);
-        toast._timer = setTimeout(function() {
-            toast.classList.remove('show');
-        }, 3000);
-    }
-
-    // =====================================================
-    // EVENTS
-    // =====================================================
-
-    cmdInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            var cmd = this.value;
-            if (cmd.trim()) {
-                addLine('prompt', '$> ' + cmd);
-                processCommand(cmd);
-            }
-            this.value = '';
-            setTimeout(function() {
+        // =====================================================
+        // KEYBOARD SHORTCUTS
+        // =====================================================
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                cmdInput.value = '';
                 cmdInput.focus();
-            }, 10);
-        }
-    });
+            }
+            if (e.key === 'Enter' && document.activeElement === cmdInput) {
+                // Already handled
+            }
+        });
 
-    document.getElementById('terminal').addEventListener('click', function() {
-        cmdInput.focus();
-    });
+        // =====================================================
+        // MAKE FUNCTIONS GLOBAL
+        // =====================================================
+        window.executeHack = executeHack;
+        window.resetGame = resetGame;
 
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && labArea.classList.contains('show')) {
-            closeLab();
-        }
-    });
+        // =====================================================
+        // INIT
+        // =====================================================
+        loadProgress();
+        console.log('🎮 CyberSume Hacking Game loaded!');
+        console.log('📚 Total missions: ' + missions.length);
 
-    // =====================================================
-    // MAKE FUNCTIONS GLOBAL
-    // =====================================================
-    window.startLab = startLab;
-    window.closeLab = closeLab;
-    window.checkChallenge = checkChallenge;
-
-    // =====================================================
-    // INIT
-    // =====================================================
-    loadProgress();
-    console.log('💻 CyberSume Practice Lab loaded!');
-    console.log('📚 Total labs: ' + totalLabs);
-
+    })();
 </script>
