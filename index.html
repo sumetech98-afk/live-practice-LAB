@@ -1,4 +1,4 @@
-<!-- ===== LIVE PRACTICE LAB - FIXED VERSION ===== -->
+<!-- ===== LIVE PRACTICE LAB - SIMPLE WORKING VERSION ===== -->
 <!-- Isko Blogger Page Editor mein HTML mode mein paste karein -->
 
 <style>
@@ -27,7 +27,6 @@
         margin: 0 auto;
     }
     
-    /* ===== HEADER ===== */
     .page-header {
         text-align: center;
         margin-bottom: 30px;
@@ -54,16 +53,8 @@
         margin: 10px 0 8px;
     }
     
-    .page-header h1 strong {
-        color: #00ff88;
-    }
-    
-    .page-header p {
-        color: #b0b8c8;
-        font-size: 16px;
-        max-width: 600px;
-        margin: 0 auto;
-    }
+    .page-header h1 strong { color: #00ff88; }
+    .page-header p { color: #b0b8c8; font-size: 16px; max-width: 600px; margin: 0 auto; }
     
     @media (max-width: 768px) {
         .page-header h1 { font-size: 26px; }
@@ -95,9 +86,7 @@
         font-size: 13px;
     }
     
-    .progress-section .progress-row strong {
-        color: #00ff88;
-    }
+    .progress-section .progress-row strong { color: #00ff88; }
     
     .progress-bar {
         width: 100%;
@@ -171,13 +160,13 @@
     }
     
     .lab-card .btn-start {
-        padding: 8px 24px;
+        padding: 10px 24px;
         border-radius: 6px;
         border: none;
         background: linear-gradient(135deg, #00ff88, #00cc77);
         color: #000000;
         font-weight: 700;
-        font-size: 13px;
+        font-size: 14px;
         cursor: pointer;
         transition: 0.3s;
         font-family: inherit;
@@ -251,7 +240,7 @@
         font-size: 14px;
         color: #b0b8c8;
         min-height: 160px;
-        max-height: 300px;
+        max-height: 280px;
         overflow-y: auto;
         line-height: 1.8;
         margin-bottom: 12px;
@@ -399,7 +388,7 @@
         <div class="page-header">
             <span class="badge">💻 Practice Lab</span>
             <h1>Live <strong>Practice Lab</strong></h1>
-            <p>Practice your hacking skills in a safe environment. Complete challenges and track your progress.</p>
+            <p>Practice your hacking skills in a safe environment.</p>
         </div>
 
         <!-- ===== PROGRESS ===== -->
@@ -414,32 +403,32 @@
         </div>
 
         <!-- ===== LABS ===== -->
-        <div class="labs-grid" id="labsGrid">
+        <div class="labs-grid">
             <!-- Lab 1 -->
-            <div class="lab-card" data-lab="1">
+            <div class="lab-card" id="lab1">
                 <span class="icon">🗄️</span>
                 <div class="name">SQL Injection</div>
                 <div class="desc">Bypass login using SQL injection</div>
                 <span class="status active">🟢 Active</span>
-                <button class="btn-start" onclick="openLab(1)">🚀 Start</button>
+                <button class="btn-start" onclick="startLab(1)">🚀 Start</button>
             </div>
 
             <!-- Lab 2 -->
-            <div class="lab-card" data-lab="2">
+            <div class="lab-card" id="lab2">
                 <span class="icon">🌐</span>
                 <div class="name">XSS Attack</div>
                 <div class="desc">Inject XSS payload to steal cookies</div>
                 <span class="status active">🟢 Active</span>
-                <button class="btn-start" onclick="openLab(2)">🚀 Start</button>
+                <button class="btn-start" onclick="startLab(2)">🚀 Start</button>
             </div>
 
             <!-- Lab 3 -->
-            <div class="lab-card" data-lab="3">
+            <div class="lab-card" id="lab3">
                 <span class="icon">🔑</span>
                 <div class="name">Password Cracking</div>
-                <div class="desc">Crack password hash using dictionary</div>
+                <div class="desc">Crack password hash</div>
                 <span class="status active">🟢 Active</span>
-                <button class="btn-start" onclick="openLab(3)">🚀 Start</button>
+                <button class="btn-start" onclick="startLab(3)">🚀 Start</button>
             </div>
         </div>
 
@@ -464,7 +453,7 @@
             </div>
 
             <!-- Challenge -->
-            <div class="challenge-box" id="challengeBox">
+            <div class="challenge-box">
                 <div class="challenge-title" id="challengeTitle">🎯 Challenge</div>
                 <div class="challenge-desc" id="challengeDesc">Complete the challenge to earn points!</div>
                 <div class="challenge-hint" id="challengeHint">
@@ -483,333 +472,331 @@
 
 <!-- ===== JAVASCRIPT ===== -->
 <script>
-    (function() {
-        'use strict';
+    // =====================================================
+    // LAB DATA
+    // =====================================================
+    var labData = {
+        1: {
+            name: 'SQL Injection Lab',
+            title: '🔓 SQL Injection Challenge',
+            desc: 'Bypass the login using SQL injection.',
+            hint: 'Try: admin\' OR 1=1 -- -',
+            commands: {
+                'help': 'Available: help, scan, exploit, flag, clear',
+                'scan': '🔍 Scanning...\n[+] Port 80 open - HTTP\n[+] Port 443 open - HTTPS',
+                'exploit': '💥 Exploiting SQL injection...\n[+] Payload: admin\' OR 1=1 -- -\n[+] Login successful!',
+                'flag': '🏁 FLAG{SQL_INJECTION_MASTER}',
+                'clear': 'clear'
+            },
+            check: function(input) {
+                var lower = input.toLowerCase();
+                if (lower.indexOf('or 1=1') !== -1 || lower.indexOf("'--") !== -1) {
+                    return { success: true, msg: '🎉 SQL Injection successful! You bypassed the login!' };
+                }
+                return { success: false, msg: '❌ Access Denied. Try: admin\' OR 1=1 -- -' };
+            }
+        },
+        2: {
+            name: 'XSS Lab',
+            title: '🌐 Cross-Site Scripting Challenge',
+            desc: 'Inject an XSS payload to steal the session cookie.',
+            hint: 'Try: <script>alert(document.cookie)</script>',
+            commands: {
+                'help': 'Available: help, scan, inject, flag, clear',
+                'scan': '🔍 Scanning...\n[+] Page vulnerable to XSS',
+                'inject': '💉 Payload executed! Cookie: session=admin123',
+                'flag': '🏁 FLAG{XSS_MASTER}',
+                'clear': 'clear'
+            },
+            check: function(input) {
+                var lower = input.toLowerCase();
+                if (lower.indexOf('<script>') !== -1 && lower.indexOf('</script>') !== -1) {
+                    return { success: true, msg: '🎉 XSS payload executed! Cookie stolen!' };
+                }
+                return { success: false, msg: '❌ No XSS payload detected. Try: <script>alert(document.cookie)</script>' };
+            }
+        },
+        3: {
+            name: 'Password Cracking Lab',
+            title: '🔑 Password Cracking Challenge',
+            desc: 'Crack the password hash using a dictionary attack.',
+            hint: 'Try common passwords like: password, 123456, admin',
+            commands: {
+                'help': 'Available: help, crack, flag, clear',
+                'crack': '💀 Cracking hash...\n[+] Found! Password: password',
+                'flag': '🏁 FLAG{PASSWORD_CRACKER}',
+                'clear': 'clear'
+            },
+            check: function(input) {
+                var lower = input.toLowerCase();
+                var common = ['password', '123456', 'admin', 'letmein', 'qwerty', 'passw0rd'];
+                for (var i = 0; i < common.length; i++) {
+                    if (lower.indexOf(common[i]) !== -1) {
+                        return { success: true, msg: '🎉 Password cracked! Password: ' + common[i] };
+                    }
+                }
+                return { success: false, msg: '❌ Password not found. Try a common password.' };
+            }
+        }
+    };
 
-        // =====================================================
-        // LAB CONFIGURATIONS
-        // =====================================================
-        var LABS = {
-            1: {
-                name: 'SQL Injection Lab',
-                title: '🔓 SQL Injection Challenge',
-                desc: 'Bypass the login using SQL injection.',
-                hint: 'Try: <code>admin\' OR 1=1 -- -</code>',
-                challenge: function(input) {
-                    var lower = input.toLowerCase();
-                    if (lower.indexOf("or 1=1") !== -1 || lower.indexOf("'--") !== -1 || lower.indexOf("' or") !== -1) {
-                        return { success: true, msg: '🎉 SQL Injection successful! You bypassed the login!' };
-                    }
-                    return { success: false, msg: '❌ Access Denied. Try a SQL injection payload.' };
-                },
-                commands: {
-                    'help': 'Available: help, scan, exploit, flag, clear',
-                    'scan': '🔍 Scanning...\n[+] Port 80 open - HTTP\n[+] Port 443 open - HTTPS',
-                    'exploit': '💥 Exploiting SQL injection...\n[+] Payload: admin\' OR 1=1 -- -\n[+] Login successful!',
-                    'flag': '🏁 FLAG{SQL_INJECTION_MASTER}',
-                    'clear': 'clear'
-                }
-            },
-            2: {
-                name: 'XSS Lab',
-                title: '🌐 Cross-Site Scripting Challenge',
-                desc: 'Inject an XSS payload to steal the session cookie.',
-                hint: 'Try: <code>&lt;script&gt;alert(document.cookie)&lt;/script&gt;</code>',
-                challenge: function(input) {
-                    var lower = input.toLowerCase();
-                    if (lower.indexOf('<script>') !== -1 && lower.indexOf('</script>') !== -1) {
-                        return { success: true, msg: '🎉 XSS payload executed! Cookie: session=admin123' };
-                    }
-                    if (lower.indexOf('alert') !== -1 || lower.indexOf('cookie') !== -1) {
-                        return { success: false, msg: '⚠️ Almost! Wrap it in &lt;script&gt; tags.' };
-                    }
-                    return { success: false, msg: '❌ No XSS payload detected.' };
-                },
-                commands: {
-                    'help': 'Available: help, scan, inject, flag, clear',
-                    'scan': '🔍 Scanning...\n[+] Page vulnerable to XSS\n[+] Input field: comment',
-                    'inject': '💉 Payload: &lt;script&gt;alert(document.cookie)&lt;/script&gt;\n[+] Payload executed!',
-                    'flag': '🏁 FLAG{XSS_MASTER}',
-                    'clear': 'clear'
-                }
-            },
-            3: {
-                name: 'Password Cracking Lab',
-                title: '🔑 Password Cracking Challenge',
-                desc: 'Crack the password hash using a dictionary attack.',
-                hint: 'Try common passwords like: password, 123456, admin',
-                challenge: function(input) {
-                    var lower = input.toLowerCase();
-                    var common = ['password', '123456', 'admin', 'letmein', 'qwerty', 'passw0rd'];
-                    for (var i = 0; i < common.length; i++) {
-                        if (lower.indexOf(common[i]) !== -1) {
-                            return { success: true, msg: '🎉 Password cracked! Password: ' + common[i] };
-                        }
-                    }
-                    return { success: false, msg: '❌ Password not found. Try a common password.' };
-                },
-                commands: {
-                    'help': 'Available: help, crack, flag, clear',
-                    'crack': '💀 Cracking hash...\n[+] Hash: 5f4dcc3b5aa765d61d8327deb882cf99\n[+] Found! Password: password',
-                    'flag': '🏁 FLAG{PASSWORD_CRACKER}',
-                    'clear': 'clear'
+    // =====================================================
+    // STATE
+    // =====================================================
+    var currentLab = null;
+    var completed = [];
+    var STORAGE_KEY = 'cybersume_lab_progress';
+
+    // =====================================================
+    // DOM
+    // =====================================================
+    var labArea = document.getElementById('labArea');
+    var labTitle = document.getElementById('labTitle');
+    var terminalOutput = document.getElementById('terminalOutput');
+    var cmdInput = document.getElementById('cmdInput');
+    var challengeTitle = document.getElementById('challengeTitle');
+    var challengeDesc = document.getElementById('challengeDesc');
+    var challengeHint = document.getElementById('challengeHint');
+    var checkBtn = document.getElementById('checkBtn');
+    var progressFill = document.getElementById('progressFill');
+    var progressText = document.getElementById('progressText');
+    var completedCount = document.getElementById('completedCount');
+    var totalCount = document.getElementById('totalCount');
+    var toast = document.getElementById('toast');
+
+    var totalLabs = Object.keys(labData).length;
+    totalCount.textContent = totalLabs;
+
+    // =====================================================
+    // FUNCTIONS
+    // =====================================================
+
+    function loadProgress() {
+        try {
+            var data = localStorage.getItem(STORAGE_KEY);
+            if (data) {
+                var parsed = JSON.parse(data);
+                if (Array.isArray(parsed)) {
+                    completed = parsed;
                 }
             }
-        };
-
-        // =====================================================
-        // STATE
-        // =====================================================
-        var currentLab = null;
-        var completedLabs = [];
-        var STORAGE_KEY = 'cybersume_lab_progress';
-
-        // =====================================================
-        // DOM
-        // =====================================================
-        var labArea = document.getElementById('labArea');
-        var labTitle = document.getElementById('labTitle');
-        var terminalOutput = document.getElementById('terminalOutput');
-        var cmdInput = document.getElementById('cmdInput');
-        var challengeTitle = document.getElementById('challengeTitle');
-        var challengeDesc = document.getElementById('challengeDesc');
-        var challengeHint = document.getElementById('challengeHint');
-        var checkBtn = document.getElementById('checkBtn');
-        var progressFill = document.getElementById('progressFill');
-        var progressText = document.getElementById('progressText');
-        var completedCount = document.getElementById('completedCount');
-        var totalCount = document.getElementById('totalCount');
-        var toast = document.getElementById('toast');
-
-        var totalLabs = Object.keys(LABS).length;
-        totalCount.textContent = totalLabs;
-
-        // =====================================================
-        // FUNCTIONS
-        // =====================================================
-
-        function loadProgress() {
-            try {
-                var data = localStorage.getItem(STORAGE_KEY);
-                if (data) {
-                    var parsed = JSON.parse(data);
-                    if (Array.isArray(parsed)) {
-                        completedLabs = parsed;
-                    }
-                }
-            } catch (e) {
-                completedLabs = [];
-            }
-            updateUI();
+        } catch (e) {
+            completed = [];
         }
+        updateUI();
+    }
 
-        function saveProgress() {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(completedLabs));
-            } catch (e) {}
-        }
+    function saveProgress() {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(completed));
+        } catch (e) {}
+    }
 
-        function updateUI() {
-            var total = Object.keys(LABS).length;
-            var completed = completedLabs.length;
-            var percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+    function updateUI() {
+        var total = Object.keys(labData).length;
+        var done = completed.length;
+        var percent = total > 0 ? Math.round((done / total) * 100) : 0;
 
-            progressFill.style.width = percent + '%';
-            progressText.textContent = percent + '%';
-            completedCount.textContent = completed;
+        progressFill.style.width = percent + '%';
+        progressText.textContent = percent + '%';
+        completedCount.textContent = done;
 
-            var cards = document.querySelectorAll('.lab-card');
-            for (var i = 0; i < cards.length; i++) {
-                var labId = parseInt(cards[i].getAttribute('data-lab'));
-                var statusEl = cards[i].querySelector('.status');
-                if (completedLabs.indexOf(labId) !== -1) {
+        // Update lab cards
+        for (var i = 1; i <= total; i++) {
+            var card = document.getElementById('lab' + i);
+            if (card) {
+                var statusEl = card.querySelector('.status');
+                if (completed.indexOf(i) !== -1) {
                     statusEl.textContent = '✅ Completed';
                     statusEl.className = 'status completed';
                 }
             }
         }
+    }
 
-        // ===== OPEN LAB - FIXED =====
-        function openLab(labId) {
-            var lab = LABS[labId];
-            if (!lab) {
-                showToast('Lab not found', 'error');
-                return;
-            }
+    // ===== START LAB =====
+    function startLab(labId) {
+        var lab = labData[labId];
+        if (!lab) {
+            showToast('Lab not found', 'error');
+            return;
+        }
 
-            currentLab = labId;
-            labArea.classList.add('show');
-            labTitle.textContent = lab.title || lab.name;
-            challengeTitle.textContent = '🎯 Challenge';
-            challengeDesc.textContent = lab.desc;
-            challengeHint.innerHTML = '<p>💡 Hint: ' + lab.hint + '</p>';
-            checkBtn.textContent = '✅ Check Challenge';
-            checkBtn.className = 'btn-check';
+        currentLab = labId;
+        labArea.classList.add('show');
+        labTitle.textContent = lab.title || lab.name;
+        challengeTitle.textContent = '🎯 Challenge';
+        challengeDesc.textContent = lab.desc;
+        challengeHint.innerHTML = '<p>💡 Hint: ' + lab.hint + '</p>';
 
-            // Clear terminal
+        // Reset check button
+        checkBtn.textContent = '✅ Check Challenge';
+        checkBtn.className = 'btn-check';
+
+        // Clear terminal
+        terminalOutput.innerHTML = '';
+        addLine('info', '🖥️ Welcome to ' + lab.name);
+        addLine('info', '📌 Type <span class="highlight">help</span> for commands');
+        addLine('', '');
+
+        cmdInput.value = '';
+        cmdInput.focus();
+
+        labArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        showToast('🚀 Lab opened: ' + lab.name, 'success');
+
+        // Check if already completed
+        if (completed.indexOf(labId) !== -1) {
+            checkBtn.textContent = '✅ Completed!';
+            checkBtn.className = 'btn-check completed';
+        }
+    }
+
+    // ===== CLOSE LAB =====
+    function closeLab() {
+        labArea.classList.remove('show');
+        currentLab = null;
+        showToast('🔒 Lab closed', 'info');
+    }
+
+    // ===== ADD TERMINAL LINE =====
+    function addLine(type, text) {
+        var div = document.createElement('div');
+        div.className = type || '';
+        div.innerHTML = text;
+        terminalOutput.appendChild(div);
+        var terminal = document.getElementById('terminal');
+        terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    // ===== PROCESS COMMAND =====
+    function processCommand(cmd) {
+        var lab = labData[currentLab];
+        if (!lab) {
+            addLine('error', '❌ No lab is open. Start a lab first.');
+            return;
+        }
+
+        var trimmed = cmd.trim().toLowerCase();
+
+        // Help
+        if (trimmed === 'help') {
+            var keys = Object.keys(lab.commands);
+            addLine('output', '📋 Available commands: ' + keys.join(', '));
+            return;
+        }
+
+        // Clear
+        if (trimmed === 'clear') {
             terminalOutput.innerHTML = '';
-            addLine('info', '🖥️ Welcome to ' + lab.name);
+            addLine('info', '🖥️ Terminal cleared');
             addLine('info', '📌 Type <span class="highlight">help</span> for commands');
-            addLine('', '');
-
-            cmdInput.value = '';
-            cmdInput.focus();
-
-            labArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            showToast('🚀 Lab opened: ' + lab.name, 'success');
-
-            // Check if already completed
-            if (completedLabs.indexOf(labId) !== -1) {
-                checkBtn.textContent = '✅ Completed!';
-                checkBtn.className = 'btn-check completed';
-            }
+            return;
         }
 
-        // ===== CLOSE LAB =====
-        function closeLab() {
-            labArea.classList.remove('show');
-            currentLab = null;
-            showToast('🔒 Lab closed', 'info');
-        }
-
-        // ===== ADD TERMINAL LINE =====
-        function addLine(type, text) {
-            var div = document.createElement('div');
-            div.className = type || '';
-            div.innerHTML = text;
-            terminalOutput.appendChild(div);
-            var terminal = document.getElementById('terminal');
-            terminal.scrollTop = terminal.scrollHeight;
-        }
-
-        // ===== PROCESS COMMAND =====
-        function processCommand(cmd) {
-            var lab = LABS[currentLab];
-            if (!lab) {
-                addLine('error', '❌ No lab is open. Start a lab first.');
-                return;
-            }
-
-            var trimmed = cmd.trim().toLowerCase();
-
-            // Help
-            if (trimmed === 'help') {
-                var helpText = lab.commands ? Object.keys(lab.commands).join(', ') : 'help';
-                addLine('output', '📋 Available commands: ' + helpText);
-                return;
-            }
-
-            // Clear
-            if (trimmed === 'clear') {
-                terminalOutput.innerHTML = '';
-                addLine('info', '🖥️ Terminal cleared');
-                addLine('info', '📌 Type <span class="highlight">help</span> for commands');
-                return;
-            }
-
-            // Lab commands
-            if (lab.commands && lab.commands[trimmed]) {
-                var output = lab.commands[trimmed];
-                var lines = output.split('\n');
-                for (var i = 0; i < lines.length; i++) {
-                    if (lines[i].trim()) {
-                        addLine('output', lines[i]);
-                    }
+        // Lab commands
+        if (lab.commands && lab.commands[trimmed]) {
+            var output = lab.commands[trimmed];
+            var lines = output.split('\n');
+            for (var i = 0; i < lines.length; i++) {
+                if (lines[i].trim()) {
+                    addLine('output', lines[i]);
                 }
-                return;
             }
+            return;
+        }
 
-            // Challenge check
-            if (lab.challenge) {
-                var result = lab.challenge(cmd);
-                if (result.success) {
-                    addLine('success', result.msg);
-                    if (completedLabs.indexOf(currentLab) === -1) {
-                        completedLabs.push(currentLab);
-                        saveProgress();
-                        updateUI();
-                        showToast('🎉 Lab completed!', 'success');
-                        checkBtn.textContent = '✅ Completed!';
-                        checkBtn.className = 'btn-check completed';
-                    }
-                } else {
-                    addLine('error', result.msg);
+        // Check if it's a challenge answer
+        if (lab.check) {
+            var result = lab.check(cmd);
+            if (result.success) {
+                addLine('success', result.msg);
+                if (completed.indexOf(currentLab) === -1) {
+                    completed.push(currentLab);
+                    saveProgress();
+                    updateUI();
+                    showToast('🎉 Lab completed!', 'success');
+                    checkBtn.textContent = '✅ Completed!';
+                    checkBtn.className = 'btn-check completed';
                 }
-                return;
+            } else {
+                addLine('error', result.msg);
             }
-
-            addLine('error', '❌ Unknown command: ' + cmd);
-            addLine('info', '💡 Type <span class="highlight">help</span> for commands');
+            return;
         }
 
-        // ===== CHECK CHALLENGE =====
-        function checkChallenge() {
-            if (!currentLab) {
-                showToast('❌ Please open a lab first', 'error');
-                return;
-            }
+        addLine('error', '❌ Unknown command: ' + cmd);
+        addLine('info', '💡 Type <span class="highlight">help</span> for commands');
+    }
 
-            if (completedLabs.indexOf(currentLab) !== -1) {
-                showToast('✅ This lab is already completed!', 'success');
-                return;
-            }
-
-            showToast('💡 Type your answer in the terminal.', 'info');
-            cmdInput.focus();
+    // ===== CHECK CHALLENGE =====
+    function checkChallenge() {
+        if (!currentLab) {
+            showToast('❌ Please open a lab first', 'error');
+            return;
         }
 
-        // ===== TOAST =====
-        function showToast(msg, type) {
-            toast.textContent = msg;
-            toast.className = 'toast ' + (type || 'success');
-            toast.classList.add('show');
-            clearTimeout(toast._timer);
-            toast._timer = setTimeout(function() {
-                toast.classList.remove('show');
-            }, 3000);
+        if (completed.indexOf(currentLab) !== -1) {
+            showToast('✅ This lab is already completed!', 'success');
+            return;
         }
 
-        // =====================================================
-        // EVENTS
-        // =====================================================
+        showToast('💡 Type your answer in the terminal.', 'info');
+        cmdInput.focus();
+    }
 
-        cmdInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                var cmd = this.value;
-                if (cmd.trim()) {
-                    addLine('prompt', '$> ' + cmd);
-                    processCommand(cmd);
-                }
-                this.value = '';
-                setTimeout(function() {
-                    cmdInput.focus();
-                }, 10);
+    // ===== TOAST =====
+    function showToast(msg, type) {
+        toast.textContent = msg;
+        toast.className = 'toast ' + (type || 'success');
+        toast.classList.add('show');
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(function() {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
+    // =====================================================
+    // EVENTS
+    // =====================================================
+
+    cmdInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            var cmd = this.value;
+            if (cmd.trim()) {
+                addLine('prompt', '$> ' + cmd);
+                processCommand(cmd);
             }
-        });
+            this.value = '';
+            setTimeout(function() {
+                cmdInput.focus();
+            }, 10);
+        }
+    });
 
-        document.getElementById('terminal').addEventListener('click', function() {
-            cmdInput.focus();
-        });
+    document.getElementById('terminal').addEventListener('click', function() {
+        cmdInput.focus();
+    });
 
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && labArea.classList.contains('show')) {
-                closeLab();
-            }
-        });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && labArea.classList.contains('show')) {
+            closeLab();
+        }
+    });
 
-        // =====================================================
-        // INIT
-        // =====================================================
+    // =====================================================
+    // MAKE FUNCTIONS GLOBAL
+    // =====================================================
+    window.startLab = startLab;
+    window.closeLab = closeLab;
+    window.checkChallenge = checkChallenge;
 
-        loadProgress();
-        console.log('💻 CyberSume Practice Lab loaded!');
-        console.log('📚 Total labs: ' + totalLabs);
+    // =====================================================
+    // INIT
+    // =====================================================
+    loadProgress();
+    console.log('💻 CyberSume Practice Lab loaded!');
+    console.log('📚 Total labs: ' + totalLabs);
 
-        // Make functions global for onclick
-        window.openLab = openLab;
-        window.closeLab = closeLab;
-        window.checkChallenge = checkChallenge;
-
-    })();
 </script>
