@@ -1,0 +1,932 @@
+<!-- ===== LIVE PRACTICE LAB - CYBERSUME FULL SCREEN BLACK EDITION ===== -->
+<!-- Isko Blogger Page Editor mein HTML mode mein paste karein -->
+
+<style>
+    /* ===== FULL SCREEN WRAPPER ===== */
+    .cyber-post-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 30px 40px 50px !important;
+        background: #000000 !important;
+        color: #ffffff;
+        border-radius: 0 !important;
+        box-sizing: border-box;
+        min-height: 100vh;
+    }
+    
+    @media (max-width: 1200px) {
+        .cyber-post-wrapper { padding: 25px 35px 45px !important; }
+    }
+    @media (max-width: 992px) {
+        .cyber-post-wrapper { padding: 22px 30px 40px !important; }
+    }
+    @media (max-width: 768px) {
+        .cyber-post-wrapper { padding: 18px 22px 35px !important; }
+    }
+    @media (max-width: 600px) {
+        .cyber-post-wrapper { padding: 15px 18px 30px !important; }
+    }
+    @media (max-width: 480px) {
+        .cyber-post-wrapper { padding: 12px 14px 25px !important; }
+    }
+    
+    .cyber-content {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0;
+    }
+    
+    /* ===== PAGE HEADER ===== */
+    .page-header-cyber {
+        margin-bottom: 35px;
+        padding-bottom: 25px;
+        border-bottom: 2px solid rgba(0, 255, 136, 0.1);
+        text-align: center;
+    }
+    
+    .page-badge {
+        display: inline-block;
+        padding: 6px 26px;
+        background: rgba(0, 255, 136, 0.08);
+        border: 1px solid #00ff88;
+        border-radius: 50px;
+        color: #00ff88;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 20px;
+    }
+    
+    .page-title-cyber {
+        font-size: 38px;
+        font-weight: 900;
+        line-height: 1.15;
+        color: #ffffff !important;
+        margin: 12px 0 18px;
+        letter-spacing: -0.5px;
+        text-align: center;
+    }
+    
+    .page-title-cyber strong {
+        color: #00ff88;
+    }
+    
+    .page-description {
+        color: #b0b8c8;
+        font-size: 17px;
+        line-height: 1.8;
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    @media (max-width: 992px) {
+        .page-title-cyber { font-size: 30px; }
+    }
+    @media (max-width: 768px) {
+        .page-title-cyber { font-size: 24px; }
+        .page-description { font-size: 15px; }
+    }
+    @media (max-width: 480px) {
+        .page-title-cyber { font-size: 20px; }
+    }
+    
+    /* ===== LABS GRID ===== */
+    .labs-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+        margin: 20px 0 30px;
+    }
+    
+    @media (max-width: 992px) {
+        .labs-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    @media (max-width: 600px) {
+        .labs-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    /* ===== LAB CARD ===== */
+    .lab-card {
+        background: #0a0a0a;
+        border: 1px solid rgba(0, 255, 136, 0.06);
+        border-radius: 14px;
+        padding: 24px 22px;
+        transition: 0.3s;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .lab-card:hover {
+        border-color: rgba(0, 255, 136, 0.2);
+        transform: translateY(-4px);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    .lab-card .lab-icon {
+        font-size: 36px;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+    
+    .lab-card .lab-name {
+        color: #00ff88;
+        font-size: 18px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 6px;
+    }
+    
+    .lab-card .lab-desc {
+        color: #b0b8c8;
+        font-size: 14px;
+        line-height: 1.7;
+        text-align: center;
+        flex: 1;
+        margin-bottom: 12px;
+    }
+    
+    .lab-card .lab-status {
+        text-align: center;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+    
+    .lab-card .lab-status.active {
+        background: rgba(0, 255, 136, 0.15);
+        color: #00ff88;
+        border: 1px solid rgba(0, 255, 136, 0.2);
+    }
+    
+    .lab-card .lab-status.coming {
+        background: rgba(255, 204, 0, 0.1);
+        color: #ffcc00;
+        border: 1px solid rgba(255, 204, 0, 0.15);
+    }
+    
+    .lab-card .lab-status.completed {
+        background: rgba(0, 217, 255, 0.1);
+        color: #00d9ff;
+        border: 1px solid rgba(0, 217, 255, 0.15);
+    }
+    
+    .lab-card .btn-lab {
+        display: block;
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: none;
+        background: linear-gradient(135deg, #00ff88, #00cc77);
+        color: #000000;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-family: inherit;
+        text-align: center;
+        text-decoration: none;
+    }
+    
+    .lab-card .btn-lab:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+    }
+    
+    .lab-card .btn-lab.disabled {
+        background: rgba(255, 255, 255, 0.05);
+        color: #6a7290;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+    
+    @media (max-width: 480px) {
+        .lab-card {
+            padding: 18px 16px;
+        }
+        .lab-card .lab-name {
+            font-size: 16px;
+        }
+        .lab-card .lab-desc {
+            font-size: 13px;
+        }
+    }
+    
+    /* ===== TERMINAL / LAB AREA ===== */
+    .lab-area {
+        background: #0a0a0a;
+        border: 1px solid rgba(0, 255, 136, 0.08);
+        border-radius: 14px;
+        padding: 25px 30px;
+        margin: 20px 0 30px;
+        display: none;
+        animation: fadeIn 0.5s ease;
+    }
+    
+    .lab-area.show {
+        display: block;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .lab-area .lab-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(0, 255, 136, 0.05);
+    }
+    
+    .lab-area .lab-header .lab-title {
+        color: #00ff88;
+        font-size: 20px;
+        font-weight: 700;
+    }
+    
+    .lab-area .lab-header .btn-close-lab {
+        padding: 8px 20px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 107, 107, 0.3);
+        background: transparent;
+        color: #ff6b6b;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-family: inherit;
+    }
+    
+    .lab-area .lab-header .btn-close-lab:hover {
+        background: rgba(255, 107, 107, 0.1);
+        border-color: #ff6b6b;
+    }
+    
+    /* ===== TERMINAL ===== */
+    .terminal {
+        background: #000000;
+        border: 1px solid rgba(0, 255, 136, 0.06);
+        border-radius: 10px;
+        padding: 16px 20px;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        color: #b0b8c8;
+        min-height: 200px;
+        max-height: 400px;
+        overflow-y: auto;
+        line-height: 1.8;
+        margin-bottom: 14px;
+    }
+    
+    .terminal .prompt {
+        color: #00ff88;
+    }
+    
+    .terminal .output {
+        color: #b0b8c8;
+    }
+    
+    .terminal .error {
+        color: #ff6b6b;
+    }
+    
+    .terminal .success {
+        color: #00ff88;
+    }
+    
+    .terminal .info {
+        color: #00d9ff;
+    }
+    
+    .terminal .highlight {
+        color: #ffcc00;
+    }
+    
+    .terminal .cmd-input {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 6px;
+    }
+    
+    .terminal .cmd-input .prompt-symbol {
+        color: #00ff88;
+        font-weight: 700;
+    }
+    
+    .terminal .cmd-input input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        outline: none;
+        padding: 4px 0;
+    }
+    
+    .terminal .cmd-input input::placeholder {
+        color: #6a7290;
+    }
+    
+    /* ===== CHALLENGE SECTION ===== */
+    .challenge-section {
+        margin-top: 14px;
+    }
+    
+    .challenge-section .challenge-title {
+        color: #ffcc00;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+    
+    .challenge-section .challenge-desc {
+        color: #b0b8c8;
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 10px;
+    }
+    
+    .challenge-section .challenge-hint {
+        background: rgba(0, 217, 255, 0.03);
+        border-left: 3px solid #00d9ff;
+        padding: 10px 16px;
+        border-radius: 0 6px 6px 0;
+        margin: 8px 0 12px;
+    }
+    
+    .challenge-section .challenge-hint p {
+        color: #00d9ff !important;
+        font-size: 14px;
+        margin: 0 !important;
+    }
+    
+    .challenge-section .btn-check {
+        padding: 10px 30px;
+        border-radius: 8px;
+        border: none;
+        background: linear-gradient(135deg, #ffcc00, #ff9900);
+        color: #000000;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-family: inherit;
+    }
+    
+    .challenge-section .btn-check:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 30px rgba(255, 204, 0, 0.2);
+    }
+    
+    /* ===== PROGRESS BAR ===== */
+    .progress-section {
+        margin: 20px 0 25px;
+    }
+    
+    .progress-section .progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+    
+    .progress-section .progress-header .progress-label {
+        color: #b0b8c8;
+        font-size: 14px;
+    }
+    
+    .progress-section .progress-header .progress-label strong {
+        color: #00ff88;
+    }
+    
+    .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    .progress-bar .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #00ff88, #00d9ff);
+        border-radius: 10px;
+        transition: width 0.5s ease;
+        width: 0%;
+    }
+    
+    /* ===== TOAST ===== */
+    .toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #0a0a0a;
+        border: 1px solid #00ff88;
+        border-radius: 12px;
+        padding: 14px 22px;
+        color: #ffffff;
+        font-size: 14px;
+        font-family: inherit;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        transform: translateY(100px);
+        opacity: 0;
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 9999;
+        max-width: 90vw;
+    }
+    
+    .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    .toast.success {
+        border-color: #00ff88;
+    }
+    
+    .toast.error {
+        border-color: #ff6b6b;
+    }
+    
+    .toast.info {
+        border-color: #00d9ff;
+    }
+    
+    /* ===== RESPONSIVE ===== */
+    .cyber-post-wrapper a {
+        color: #00ff88;
+        text-decoration: none;
+    }
+    
+    .cyber-post-wrapper a:hover {
+        color: #00d9ff;
+    }
+    
+    .text-center {
+        text-align: center;
+    }
+    
+    /* ===== TERMINAL SCROLLBAR ===== */
+    .terminal::-webkit-scrollbar {
+        width: 4px;
+    }
+    .terminal::-webkit-scrollbar-track {
+        background: #050816;
+    }
+    .terminal::-webkit-scrollbar-thumb {
+        background: #00ff88;
+        border-radius: 10px;
+    }
+</style>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="cyber-post-wrapper">
+
+    <div class="cyber-content">
+
+        <!-- ===== PAGE HEADER ===== -->
+        <div class="page-header-cyber">
+            <div class="page-badge">💻 Practice Lab</div>
+            <h1 class="page-title-cyber">Live <strong>Practice Lab</strong></h1>
+            <p class="page-description">
+                Practice your hacking skills in a safe, simulated environment. Complete challenges and track your progress.
+            </p>
+        </div>
+
+        <!-- ===== PROGRESS ===== -->
+        <div class="progress-section">
+            <div class="progress-header">
+                <span class="progress-label">📊 Overall Progress: <strong id="progressText">0%</strong></span>
+                <span class="progress-label">Labs Completed: <strong id="completedCount">0</strong> / <span id="totalCount">5</span></span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- ===== LABS GRID ===== -->
+        <div class="labs-grid">
+
+            <!-- Lab 1: SQL Injection -->
+            <div class="lab-card" data-lab="1">
+                <div class="lab-icon">🗄️</div>
+                <div class="lab-name">SQL Injection</div>
+                <div class="lab-desc">Practice SQL injection on a vulnerable login page.</div>
+                <div class="lab-status active">🟢 Active</div>
+                <button class="btn-lab" onclick="openLab(1)">🚀 Start Lab</button>
+            </div>
+
+            <!-- Lab 2: XSS -->
+            <div class="lab-card" data-lab="2">
+                <div class="lab-icon">🌐</div>
+                <div class="lab-name">Cross-Site Scripting (XSS)</div>
+                <div class="lab-desc">Find and exploit XSS vulnerabilities.</div>
+                <div class="lab-status active">🟢 Active</div>
+                <button class="btn-lab" onclick="openLab(2)">🚀 Start Lab</button>
+            </div>
+
+            <!-- Lab 3: Password Cracking -->
+            <div class="lab-card" data-lab="3">
+                <div class="lab-icon">🔑</div>
+                <div class="lab-name">Password Cracking</div>
+                <div class="lab-desc">Crack password hashes using dictionary attacks.</div>
+                <div class="lab-status active">🟢 Active</div>
+                <button class="btn-lab" onclick="openLab(3)">🚀 Start Lab</button>
+            </div>
+
+            <!-- Lab 4: Port Scanning -->
+            <div class="lab-card" data-lab="4">
+                <div class="lab-icon">🔍</div>
+                <div class="lab-name">Port Scanning</div>
+                <div class="lab-desc">Discover open ports and services on a target.</div>
+                <div class="lab-status coming">🟡 Coming Soon</div>
+                <button class="btn-lab disabled">⏳ Coming Soon</button>
+            </div>
+
+            <!-- Lab 5: Brute Force -->
+            <div class="lab-card" data-lab="5">
+                <div class="lab-icon">💥</div>
+                <div class="lab-name">Brute Force Attack</div>
+                <div class="lab-desc">Practice brute force attacks on a login form.</div>
+                <div class="lab-status coming">🟡 Coming Soon</div>
+                <button class="btn-lab disabled">⏳ Coming Soon</button>
+            </div>
+
+        </div>
+
+        <!-- ===== LAB AREA ===== -->
+        <div class="lab-area" id="labArea">
+            <div class="lab-header">
+                <span class="lab-title" id="labTitle">Lab Name</span>
+                <button class="btn-close-lab" onclick="closeLab()">✕ Close Lab</button>
+            </div>
+
+            <!-- ===== TERMINAL ===== -->
+            <div class="terminal" id="terminal">
+                <div id="terminalOutput">
+                    <div class="info">🖥️ Welcome to CyberSume Practice Lab</div>
+                    <div class="info">📌 Type your commands below</div>
+                    <div class="info">💡 Type <span class="highlight">help</span> for available commands</div>
+                    <div>&nbsp;</div>
+                </div>
+                <div class="cmd-input">
+                    <span class="prompt-symbol">$></span>
+                    <input type="text" id="cmdInput" placeholder="Enter command..." autofocus />
+                </div>
+            </div>
+
+            <!-- ===== CHALLENGE ===== -->
+            <div class="challenge-section" id="challengeSection">
+                <div class="challenge-title" id="challengeTitle">🎯 Challenge</div>
+                <div class="challenge-desc" id="challengeDesc">Complete the challenge to earn points!</div>
+                <div class="challenge-hint" id="challengeHint">
+                    <p>💡 Hint: Try typing <code>help</code> to see available commands.</p>
+                </div>
+                <button class="btn-check" onclick="checkChallenge()">✅ Check Challenge</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+    (function() {
+        'use strict';
+
+        // ===== STATE =====
+        var currentLab = null;
+        var completedLabs = [];
+        var labProgress = {};
+
+        // ===== LAB CONFIGURATIONS =====
+        var labs = {
+            1: {
+                name: 'SQL Injection Lab',
+                title: '🔓 SQL Injection Challenge',
+                desc: 'Exploit the SQL injection vulnerability to bypass the login.',
+                hint: 'Try using: <code>admin\' OR 1=1 -- -</code> as the password.',
+                challenge: function(input) {
+                    var lower = input.toLowerCase();
+                    if (lower.includes('or 1=1') || lower.includes("'--") || lower.includes("' or")) {
+                        return { success: true, message: '🎉 SQL Injection successful! You bypassed the login!' };
+                    }
+                    return { success: false, message: '❌ Access Denied. Try a SQL injection payload.' };
+                },
+                commands: {
+                    'help': 'Available commands: help, scan, exploit, flag, clear',
+                    'scan': '🔍 Scanning target...\n[+] Port 80 open - HTTP\n[+] Port 443 open - HTTPS\n[+] Port 3306 open - MySQL',
+                    'exploit': '💥 Exploiting SQL injection...\n[+] Target vulnerable!\n[+] Payload: admin\' OR 1=1 -- -\n[+] Login successful!',
+                    'flag': '🏁 FLAG{SQL_INJECTION_MASTER}',
+                    'clear': 'clear'
+                }
+            },
+            2: {
+                name: 'XSS Lab',
+                title: '🌐 Cross-Site Scripting Challenge',
+                desc: 'Inject a XSS payload to steal the session cookie.',
+                hint: 'Try using: <code>&lt;script&gt;alert(document.cookie)&lt;/script&gt;</code>',
+                challenge: function(input) {
+                    var lower = input.toLowerCase();
+                    if (lower.includes('<script>') && lower.includes('</script>')) {
+                        return { success: true, message: '🎉 XSS payload executed! Cookie stolen: session=admin123' };
+                    }
+                    if (lower.includes('alert') || lower.includes('cookie')) {
+                        return { success: false, message: '⚠️ Almost! Try wrapping it in &lt;script&gt; tags.' };
+                    }
+                    return { success: false, message: '❌ No XSS payload detected. Try injecting a script tag.' };
+                },
+                commands: {
+                    'help': 'Available commands: help, scan, inject, flag, clear',
+                    'scan': '🔍 Scanning target...\n[+] Page vulnerable to XSS\n[+] Input field found: comment',
+                    'inject': '💉 Injecting XSS payload...\n[+] Payload: &lt;script&gt;alert(document.cookie)&lt;/script&gt;\n[+] Payload executed!',
+                    'flag': '🏁 FLAG{XSS_MASTER}',
+                    'clear': 'clear'
+                }
+            },
+            3: {
+                name: 'Password Cracking Lab',
+                title: '🔑 Password Cracking Challenge',
+                desc: 'Crack the password hash using a dictionary attack.',
+                hint: 'Try using: <code>rockyou.txt</code> wordlist with <code>hashcat</code> or <code>john</code>',
+                challenge: function(input) {
+                    var lower = input.toLowerCase();
+                    var common = ['password', '123456', 'admin', 'letmein', 'qwerty', 'passw0rd'];
+                    for (var i = 0; i < common.length; i++) {
+                        if (lower.includes(common[i])) {
+                            return { success: true, message: '🎉 Password cracked! The password was: ' + common[i] };
+                        }
+                    }
+                    return { success: false, message: '❌ Password not found. Try a common password.' };
+                },
+                commands: {
+                    'help': 'Available commands: help, crack, flag, clear',
+                    'crack': '💀 Cracking hash...\n[+] Hash: 5f4dcc3b5aa765d61d8327deb882cf99\n[+] Attempting dictionary attack...\n[+] Found! Password: password',
+                    'flag': '🏁 FLAG{PASSWORD_CRACKER}',
+                    'clear': 'clear'
+                }
+            }
+        };
+
+        // ===== DOM REFERENCES =====
+        var labArea = document.getElementById('labArea');
+        var labTitle = document.getElementById('labTitle');
+        var terminalOutput = document.getElementById('terminalOutput');
+        var cmdInput = document.getElementById('cmdInput');
+        var challengeTitle = document.getElementById('challengeTitle');
+        var challengeDesc = document.getElementById('challengeDesc');
+        var challengeHint = document.getElementById('challengeHint');
+        var progressFill = document.getElementById('progressFill');
+        var progressText = document.getElementById('progressText');
+        var completedCount = document.getElementById('completedCount');
+        var totalCount = document.getElementById('totalCount');
+        var toast = document.getElementById('toast');
+
+        // ===== UPDATE TOTAL =====
+        var totalLabs = document.querySelectorAll('.lab-card').length;
+        totalCount.textContent = totalLabs;
+
+        // ===== LOAD PROGRESS =====
+        function loadProgress() {
+            try {
+                var data = localStorage.getItem('cybersume_lab_progress');
+                if (data) {
+                    var parsed = JSON.parse(data);
+                    if (Array.isArray(parsed)) {
+                        completedLabs = parsed;
+                    }
+                }
+            } catch (e) {
+                completedLabs = [];
+            }
+            updateProgress();
+        }
+
+        // ===== SAVE PROGRESS =====
+        function saveProgress() {
+            try {
+                localStorage.setItem('cybersume_lab_progress', JSON.stringify(completedLabs));
+            } catch (e) {}
+        }
+
+        // ===== UPDATE PROGRESS =====
+        function updateProgress() {
+            var total = document.querySelectorAll('.lab-card').length;
+            var completed = completedLabs.length;
+            var percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            progressFill.style.width = percent + '%';
+            progressText.textContent = percent + '%';
+            completedCount.textContent = completed;
+
+            // Update lab cards
+            var cards = document.querySelectorAll('.lab-card');
+            for (var i = 0; i < cards.length; i++) {
+                var labId = parseInt(cards[i].getAttribute('data-lab'));
+                var statusEl = cards[i].querySelector('.lab-status');
+                if (completedLabs.indexOf(labId) !== -1) {
+                    statusEl.textContent = '✅ Completed';
+                    statusEl.className = 'lab-status completed';
+                }
+            }
+        }
+
+        // ===== OPEN LAB =====
+        function openLab(labId) {
+            var lab = labs[labId];
+            if (!lab) {
+                showToast('Lab not found', 'error');
+                return;
+            }
+
+            currentLab = labId;
+            labArea.classList.add('show');
+            labTitle.textContent = lab.title || lab.name;
+            challengeTitle.textContent = '🎯 Challenge';
+            challengeDesc.textContent = lab.desc;
+            challengeHint.innerHTML = '<p>💡 Hint: ' + lab.hint + '</p>';
+
+            // Clear terminal
+            terminalOutput.innerHTML = '';
+            addTerminalLine('info', '🖥️ Welcome to ' + lab.name);
+            addTerminalLine('info', '📌 Type <span class="highlight">help</span> for available commands');
+            addTerminalLine('info', '💡 Complete the challenge to earn points!');
+            addTerminalLine('', '');
+
+            cmdInput.value = '';
+            cmdInput.focus();
+
+            // Remove previous challenge check styling
+            var checkBtn = document.querySelector('.btn-check');
+            checkBtn.textContent = '✅ Check Challenge';
+            checkBtn.style.background = 'linear-gradient(135deg, #ffcc00, #ff9900)';
+
+            // Scroll to lab
+            labArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Show toast
+            showToast('🚀 Lab opened: ' + lab.name, 'success');
+        }
+
+        // ===== CLOSE LAB =====
+        function closeLab() {
+            labArea.classList.remove('show');
+            currentLab = null;
+            showToast('🔒 Lab closed', 'info');
+        }
+
+        // ===== ADD TERMINAL LINE =====
+        function addTerminalLine(type, text) {
+            var div = document.createElement('div');
+            div.className = type;
+            div.innerHTML = text;
+            terminalOutput.appendChild(div);
+            // Scroll to bottom
+            var terminal = document.getElementById('terminal');
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        // ===== PROCESS COMMAND =====
+        function processCommand(cmd) {
+            var lab = labs[currentLab];
+            if (!lab) {
+                addTerminalLine('error', '❌ No lab is open. Please start a lab first.');
+                return;
+            }
+
+            var trimmed = cmd.trim().toLowerCase();
+
+            // Check if it's a command
+            if (lab.commands && lab.commands[trimmed]) {
+                if (trimmed === 'clear') {
+                    terminalOutput.innerHTML = '';
+                    addTerminalLine('info', '🖥️ Terminal cleared');
+                    addTerminalLine('info', '📌 Type <span class="highlight">help</span> for commands');
+                    return;
+                }
+                var output = lab.commands[trimmed];
+                if (typeof output === 'string') {
+                    var lines = output.split('\n');
+                    for (var i = 0; i < lines.length; i++) {
+                        if (lines[i].trim()) {
+                            addTerminalLine('output', lines[i]);
+                        }
+                    }
+                }
+                return;
+            }
+
+            // Check if it's a challenge attempt
+            if (lab.challenge) {
+                var result = lab.challenge(cmd);
+                if (result.success) {
+                    addTerminalLine('success', result.message);
+                    // Mark as completed
+                    if (completedLabs.indexOf(currentLab) === -1) {
+                        completedLabs.push(currentLab);
+                        saveProgress();
+                        updateProgress();
+                        showToast('🎉 Lab completed!', 'success');
+                        var checkBtn = document.querySelector('.btn-check');
+                        checkBtn.textContent = '✅ Completed!';
+                        checkBtn.style.background = 'rgba(0,255,136,0.2)';
+                        checkBtn.style.color = '#00ff88';
+                    }
+                } else {
+                    addTerminalLine('error', result.message);
+                }
+                return;
+            }
+
+            addTerminalLine('error', '❌ Unknown command: ' + cmd);
+            addTerminalLine('info', '💡 Type <span class="highlight">help</span> for available commands');
+        }
+
+        // ===== CHECK CHALLENGE =====
+        function checkChallenge() {
+            var lab = labs[currentLab];
+            if (!lab) {
+                showToast('❌ Please open a lab first', 'error');
+                return;
+            }
+
+            var checkBtn = document.querySelector('.btn-check');
+
+            // Check if already completed
+            if (completedLabs.indexOf(currentLab) !== -1) {
+                showToast('✅ This lab is already completed!', 'success');
+                return;
+            }
+
+            showToast('💡 Type your answer in the terminal.', 'info');
+            cmdInput.focus();
+        }
+
+        // ===== SHOW TOAST =====
+        function showToast(message, type) {
+            toast.textContent = message;
+            toast.className = 'toast ' + (type || 'success');
+            toast.classList.add('show');
+
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(function() {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ===== EVENT LISTENERS =====
+        cmdInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                var cmd = this.value;
+                if (cmd.trim()) {
+                    addTerminalLine('prompt', '$> ' + cmd);
+                    processCommand(cmd);
+                }
+                this.value = '';
+                setTimeout(function() {
+                    cmdInput.focus();
+                }, 10);
+            }
+        });
+
+        // Click on terminal to focus input
+        document.getElementById('terminal').addEventListener('click', function() {
+            cmdInput.focus();
+        });
+
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && labArea.classList.contains('show')) {
+                closeLab();
+            }
+        });
+
+        // ===== INIT =====
+        loadProgress();
+
+        console.log('💻 CyberSume Practice Lab loaded!');
+        console.log('📚 Total labs: ' + totalLabs);
+        console.log('✅ Completed: ' + completedLabs.length);
+
+    })();
+</script>
